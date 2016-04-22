@@ -1,0 +1,24 @@
+
+<project name="vmware2" default="compile" basedir=".">
+
+  <property name="sourcedir" value="${basedir}/procons"/>
+  <property name="targetdir" value="${basedir}/build"/>
+
+  <target name="clean">
+    <delete dir="${targetdir}"/>
+    <mkdir dir="${targetdir}"/>
+  </target>
+
+  <target name="compile">
+	<javac srcdir="${sourcedir}" 
+		   destdir="${targetdir}"
+		   includeantruntime="false"/>
+  </target>
+
+  <target name="run" depends="compile">
+	<java classname="procons.Main" fork="true">
+	  <classpath path="${targetdir}"/>
+	</java>
+  </target>
+</project>
+
