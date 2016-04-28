@@ -2,14 +2,12 @@
 /**
  * Task #1 (C++)
  *  
- * Write a `NamedPoint` class with three members: two floating
- * point values for the coordinates on an X-Y plane, and a
- * name represented as a `char*`. Assume that this class will
- * be used for some sort of a war-game or a simulation program
- * that treats the world as flat and that these named points
- * will be used to represent things like cities, battlefields,
- * etc.
- *
+ * Գրել `NamedPoint` դասը, որն ունիի երեք անդամ․ հարթության 
+ * վրա կետի կոորդինատները ներկայացնող երկու իրական թվեր և 
+ * `char*`֊ով ներկայացվող կետի անունը։ Ենթադրվում է, որ այս 
+ * դասը պետք է օգտագործվի ինչ֊որ կռիվ֊խաղում, որտեղ աշխարհը 
+ * ներկայացված է հարթությամբ, իսկ անվանված կետերը ներկայացնում 
+ * են քաղաքներ, մարտադաշտեր և այլն։
  */
 
 #ifndef NAMED_POINT_H
