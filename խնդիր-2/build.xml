@@ -5,20 +5,29 @@
   <property name="targetdir" value="${basedir}/build"/>
 
   <target name="clean">
+    <delete dir="${basedir}/jar"/>
     <delete dir="${targetdir}"/>
     <mkdir dir="${targetdir}"/>
   </target>
 
   <target name="compile">
-	<javac srcdir="${sourcedir}" 
-		   destdir="${targetdir}"
-		   includeantruntime="false"/>
+    <javac srcdir="${sourcedir}" 
+           destdir="${targetdir}"
+           includeantruntime="false"
+           encoding="utf-8"/>
   </target>
 
-  <target name="run" depends="compile">
-	<java classname="procons.Main" fork="true">
-	  <classpath path="${targetdir}"/>
-	</java>
+  <target name="jar" depends="compile">
+    <mkdir dir="${basedir}/jar"/>
+    <jar destfile="${basedir}/jar/procons.jar" basedir="${targetdir}">
+      <manifest>
+        <attribute name="Main-Class" value="procons.Main"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="run" depends="jar">
+	  <java jar="${basedir}/jar/procons.jar" fork="true"/>
   </target>
 </project>
 

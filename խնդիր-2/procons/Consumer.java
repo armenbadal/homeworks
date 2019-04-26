@@ -1,9 +1,7 @@
 package procons;
 
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.Random;
-import java.util.concurrent.BlockingQueue;
 
 /**
  * Created by abadalian on 3/31/16.

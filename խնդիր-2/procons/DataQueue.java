@@ -11,18 +11,16 @@ import java.util.concurrent.locks.ReentrantLock;
  * https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/locks/Condition.html
  */
 class DataQueue {
-    private final Lock lock = new ReentrantLock();
-    private final Condition notFull  = lock.newCondition();
-    private final Condition notEmpty = lock.newCondition();
-    private final Condition lessThan80 = lock.newCondition();
+    private Lock lock = new ReentrantLock();
+    private Condition allowPut  = lock.newCondition();
+    private Condition allowTake = lock.newCondition();
 
-    private final Integer[] items = new Integer[100];
+    private int[] items = new int[100];
     private int putinx = 0, takeinx = 0, count = 0;
 
     //
     public int getCount()
     {
-        final Lock lock = this.lock;
         lock.lock();
         try {
             return count;
@@ -33,21 +31,19 @@ class DataQueue {
     }
 
     //
-    public void put(Integer x) throws InterruptedException
+    public void put(int x) throws InterruptedException
     {
         lock.lock();
         try {
-            while( count == items.length ) {
-                notFull.await();
-                lessThan80.await();
-            }
+            while( count == items.length )
+                allowPut.await();
 
-            items[putinx] = x;
-            ++putinx;
+            items[putinx++] = x;
             if( putinx == items.length )
                 putinx = 0;
             ++count;
-            notEmpty.signal();
+
+            allowTake.signalAll();
         }
         finally {
             lock.unlock();
@@ -55,21 +51,21 @@ class DataQueue {
     }
 
     //
-    public Integer take() throws InterruptedException
+    public int take() throws InterruptedException
     {
         lock.lock();
         try {
             while( count == 0 )
-                notEmpty.await();
+                allowTake.await();
 
-            Integer x = items[takeinx];
-            ++takeinx;
+            int x = items[takeinx++];
             if( takeinx == items.length )
                 takeinx = 0;
             --count;
-            notFull.signal();
+
             if( count < 80 )
-                lessThan80.signalAll();
+                allowPut.signalAll();
+                
             return x;
         }
         finally {
