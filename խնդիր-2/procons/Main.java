@@ -75,6 +75,7 @@ public class Main {
         // սպառողների աշխատանքը։
 
         // producer-ների և consumer-ների աշխատանքը դադարեցնող հոսքը
+        final PrintWriter eOutput = output;
         Thread sdh = new Thread() {
             @Override
             public void run()
@@ -97,7 +98,7 @@ public class Main {
                 // կանգնեցել հերթի վիճակին հետևող հոսքը
                 reporter.interrupt();
                 // փակել արտածման ֆայլը
-                output.close();
+                eOutput.close();
             }
         };
         Runtime.getRuntime().addShutdownHook(sdh);

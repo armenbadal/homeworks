@@ -18,13 +18,7 @@ class DataQueue {
     //
     public int getCount()
     {
-        lock.lock();
-        try {
-            return count;
-        }
-        finally {
-            lock.unlock();
-        }
+        return count;
     }
 
     /**
