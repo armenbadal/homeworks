@@ -4,7 +4,10 @@ import java.io.PrintWriter;
 import java.util.Random;
 
 /**
- * Created by abadalian on 3/31/16.
+ * Սպառողի հոսքը քնում է պատահական 0…100 միլիվայրկյան, ապա
+ * արթնանում է, տվյալների հերթից հանում է մի թիվ և այն գրում է
+ * ‘data.txt’ տեքստային ֆայլում։ Բոլոր թվերը կցվում են ֆայլի 
+ * վերջից և իրարից բաժանված են ստորակետերով (օրինակ, 4,67,99,23,…)։
  */
 class Consumer implements Runnable {
     private DataQueue queue = null;
@@ -19,7 +22,6 @@ class Consumer implements Runnable {
         writer = wri;
     }
 
-    //
     @Override
     public void run()
     {

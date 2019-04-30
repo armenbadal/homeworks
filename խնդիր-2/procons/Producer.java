@@ -3,7 +3,9 @@ package procons;
 import java.util.Random;
 
 /**
- * Created by abadalian on 3/31/16.
+ * Արտադրողի հոսքը քնում է պատահական 0…100 միլիվայրկյան, ապա 
+ * արթնանում է և գեներացնում է 1֊ից 100 միջակայքի պատահական 
+ * ամբողջ թիվ, հետո այդ թիվն ավելացնում է տվյալների հերթում։
  */
 class Producer implements Runnable {
     private DataQueue queue = null;

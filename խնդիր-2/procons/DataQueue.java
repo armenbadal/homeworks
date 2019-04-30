@@ -5,10 +5,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Created by abadalian on 3/31/16.
  *
- * Based on:
- * https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/locks/Condition.html
  */
 class DataQueue {
     private Lock lock = new ReentrantLock();
@@ -30,7 +27,12 @@ class DataQueue {
         }
     }
 
-    //
+    /**
+     * Երբ արտադրողի հոսքը հերթական թիվն ավելացնում է տվյալների
+     * հերթում, այն ստուգում է հերթի չափը և, եթե չափը մեծ է կամ
+     * հավասար 100֊ից, հոսքի աշխատանքը բլոկավորվում է մինչև թվերի
+     * քանակը դառնա փոքր կամ հավասար 80֊ի։
+     */
     public void put(int x) throws InterruptedException
     {
         lock.lock();
@@ -50,7 +52,11 @@ class DataQueue {
         }
     }
 
-    //
+    /**
+     * Երբ սպառողն ուզում է հերթից հանել հերթական թիվը և տեսնում
+     * է, որ այն դատարկ է, ապա սպառողի հոսքը բլոկավորվում է մինչև
+     * հերթում արտադրողի կողմից նոր տարրի ավելանալը։
+     */
     public int take() throws InterruptedException
     {
         lock.lock();
@@ -65,7 +71,7 @@ class DataQueue {
 
             if( count < 80 )
                 allowPut.signalAll();
-                
+
             return x;
         }
         finally {

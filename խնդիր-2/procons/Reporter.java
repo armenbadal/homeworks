@@ -1,9 +1,7 @@
 package procons;
 
 /**
- * Prints number of elements in data queue for each second.
- *
- * Created by abadalian on 4/1/16.
+ * Ծրագիրը պետք է ամեն մի վայրկյան տպի հերթում եղած թվերի քանակը։
  */
 class Reporter extends Thread {
     private DataQueue queue = null;
@@ -21,7 +19,8 @@ class Reporter extends Thread {
         while( !Thread.interrupted() ) {
             try {
                 Thread.sleep(1000);
-                System.out.println("Count = " + queue.getCount()); System.out.flush();
+                System.out.println("Count = " + queue.getCount());
+                System.out.flush();
             }
             catch( InterruptedException ex ) {
                 System.out.println("Reporter interrupted.");
