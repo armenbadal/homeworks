@@ -147,6 +147,11 @@ matrix_t* multiply( const matrix_t* ma, const matrix_t* mb )
     return NULL;
 
   matrix_t* mx = create_matrix(ma->rows, ma->columns);
+  for( size_t r = 0; r < ma->rows; ++r )
+    for( size_t c = 0; c < ma->columns; ++c ) {
+      double sp = _scalar_product_of_row_and_column(ma, r, mb, c);
+      set(mx, r, c, sp);
+    }
   
   return mx;
 }
@@ -154,17 +159,10 @@ matrix_t* multiply( const matrix_t* ma, const matrix_t* mb )
 /**/
 int main()
 {
-  /*
-  matrix_t* m0 = create_matrix(4, 5);
-  write_to(m0, stdout);
-  write_to_file(m0, "ma.txt");
-  destroy_matrix(m0);
-  */
-
-  FILE* inp = fopen("ma.txt", "r");
-  matrix_t* m1 = read_from(inp);
-  write_to(m1, stdout);
-  fclose(inp);
+  matrix_t* ma = read_from_file("ma.txt");
+  matrix_t* mb = read_from_file("ma.txt");
+  matrix_t* mc = multiply(ma, mb);
+  write_to_file(mc, "mc.txt");
 }
 
 
