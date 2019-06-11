@@ -35,15 +35,16 @@ void destroy_matrix( matrix_t* mx )
 /**/
 void set( matrix_t* mx, size_t r, size_t c, double val )
 {
-  // TODO: check bounds
-  mx->elements[r][c] = val;
+  if( r < mx->rows && c < mx->columns )
+    mx->elements[r][c] = val;
 }
 
 /**/
 double get( const matrix_t* mx, size_t r, size_t c )
 {
-  // TODO: check bounds
-  return mx->elements[r][c];
+  if( r < mx->rows && c < mx->columns )
+    return mx->elements[r][c];
+  return 0.0;
 }
 
 /**/
@@ -160,7 +161,11 @@ matrix_t* multiply( const matrix_t* ma, const matrix_t* mb )
 int main()
 {
   matrix_t* ma = read_from_file("ma.txt");
-  matrix_t* mb = read_from_file("ma.txt");
+  write_to(ma, stdout);
+
+  matrix_t* mb = read_from_file("mb.txt");
+  write_to(mb, stdout);
+  
   matrix_t* mc = multiply(ma, mb);
   write_to_file(mc, "mc.txt");
 }
