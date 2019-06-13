@@ -147,7 +147,7 @@ matrix_t* multiply( const matrix_t* ma, const matrix_t* mb )
   if( ma->columns != mb->rows )
     return NULL;
 
-  matrix_t* mx = create_matrix(ma->rows, ma->columns);
+  matrix_t* mx = create_matrix(ma->rows, mb->columns);
   for( size_t r = 0; r < ma->rows; ++r )
     for( size_t c = 0; c < ma->columns; ++c ) {
       double sp = _scalar_product_of_row_and_column(ma, r, mb, c);
